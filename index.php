@@ -10,3 +10,11 @@
  * @copyright  2014 Benjamin Wright
  * @link       http://www.benjaminbwright.com
  */
+
+// Add SERVER_ROOT
+
+define('SERVER_ROOT' , '/var/www/frank');
+
+// Add SITE_ROOT
+
+define('SITE_ROOT' , 'localhost/frank')
