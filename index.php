@@ -12,9 +12,9 @@
  */
 
 
-//
-//Root Variables
-//-------------------------------------------------------------------------
+/**
+* Define Document Paths
+*/
 
 // Add SERVER_ROOT
 // This enables internally referencing files relative to the root directory.
@@ -23,4 +23,10 @@ define('SERVER_ROOT' , '/var/www/frank');
 // Add SITE_ROOT
 // This enables externally referencing files relative to the root directory.
 // E.G. photos, videos, js, css, etc.
-define('SITE_ROOT' , 'http://localhost/frank')
+define('SITE_ROOT' , 'http://localhost/frank');
+
+/**
+* Fetch The Router
+*/
+
+require_once(SERVER_ROOT . '/controllers/' . 'router.php');
