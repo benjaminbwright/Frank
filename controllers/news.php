@@ -21,7 +21,7 @@ class News_Controller
      * controller
      */
     public $template = 'news';
-                  
+      
     /**
      * This is the default function that will be called by router.php
      * 
@@ -29,6 +29,16 @@ class News_Controller
      */
     public function main(array $getVars)
     {
-    	$newsModel = new News_Model;
+        $newsModel = new News_Model;
+          
+        //get an article
+        $article = $newsModel->get_article($getVars['article']);
+          
+        //create a new view and pass it our template
+        $view = new View_Model($this->template);
+          
+        //assign article data to view
+        $view->assign('title' , $article['title']);
+        $view->assign('content' , $article['content']);
     }
 }
