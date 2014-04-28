@@ -11,9 +11,9 @@
  * @link       http://www.benjaminbwright.com
  */
 
-//
-//This is the router that delivers the correct files based on the uri
-//----------------------------------------------------------------------
+/**
+ * The Router routes all incoming requests to the appropriate controller
+ */
 
 //Fetch the page request from the URL (E.G. Everything after the '?')
 $request = $_SERVER['QUERY_STRING'];
@@ -26,14 +26,42 @@ $page = array_shift($parsed);
 
 //Pars the rest of the get statements in the array.
 $getVars = array();
-foreach ($parsed as $argument) {
+foreach ($parsed as $argument) 
+{
 	//Split GET vars along '=' symbol to creat an array of [$variables] = $values
     list($variable , $value) = split('=' , $argument);
     $getVars[$variable] = $value;
 }
 
-//this is a test , and we will be removing it later
-echo "The page your requested is '$page'";
-echo '<br/>';
-$vars = print_r($getVars, TRUE);
-echo "The following GET vars were passed to the page:<pre>".$vars."</pre>";
+//Calculate the path to the file as $target
+$target = SERVER_ROOT . '/controllers/' . $page . '.php';
+
+//Get the target file if it exists
+if (file_exists($target)) 
+{
+	include_once($target);
+
+	//Modify the page to fit the '_Controller' naming convention
+	$class = ucfirst($page) . '_Controller';
+
+	//Instatiate the target class
+	if (class_exists($class))
+	{
+		$controller = new $class;
+	}
+	else
+	{
+		//Maybe the name was wrong?
+		//Send an error message.
+		die('Class does not exist!');
+	}
+}
+else
+{
+	//The router can't find the file in 'controllers'!
+	die('Page does not exist!');
+}
+
+//Execute the default function of the instantiated contoller
+//Pass GET variables to the main method
+$controller->main($getVars);
