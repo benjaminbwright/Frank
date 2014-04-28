@@ -12,9 +12,10 @@
  */
 
 // Add SERVER_ROOT
-
+// This enables internally referencing files relative to the root directory.
 define('SERVER_ROOT' , '/var/www/frank');
 
 // Add SITE_ROOT
-
-define('SITE_ROOT' , 'localhost/frank')
+// This enables externally referencing files relative to the root directory.
+// E.G. photos, videos, js, css, etc.
+define('SITE_ROOT' , 'http://localhost/frank')
