@@ -15,6 +15,28 @@
  * The Router routes all incoming requests to the appropriate controller
  */
 
+//Automatically include files with classes that are called 
+function __autoload($className)
+{
+	//Parse out filename where class should be located
+    list($filename , $suffix) = split('_' , $className);
+
+    //Compose file name
+    $file = SERVER_ROOT . '/models/' . strtolower($filename) . '.php';
+
+    //fetch file
+    if (file_exists($file))
+    {
+        //get file
+        include_once($file);        
+    }
+    else
+    {
+        //file does not exist!
+        die("File '$filename' containing class '$className' not found.");    
+    }
+}
+
 //Fetch the page request from the URL (E.G. Everything after the '?')
 $request = $_SERVER['QUERY_STRING'];
 
@@ -53,12 +75,14 @@ if (file_exists($target))
 	{
 		//Maybe the name was wrong?
 		//Send an error message.
+		//todo: replace the die() method with better error handling
 		die('Class does not exist!');
 	}
 }
 else
 {
 	//The router can't find the file in 'controllers'!
+	//todo: replace the die() method with better error handling
 	die('Page does not exist!');
 }
 

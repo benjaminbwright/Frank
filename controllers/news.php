@@ -29,14 +29,6 @@ class News_Controller
      */
     public function main(array $getVars)
     {
-        //this is a test , and we will be removing it later
-        print "We are in news!";
-        print '<br/>';
-        $vars = print_r($getVars, TRUE);
-        print
-        (
-            "The following GET vars were passed to this controller:" .
-            "<pre>".$vars."</pre>"
-        );
+    	$newsModel = new News_Model;
     }
 }
